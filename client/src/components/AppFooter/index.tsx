@@ -1,17 +1,17 @@
 import { Box } from "@material-ui/core";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   footer: {
     position: "fixed",
     left: 0,
     bottom: 0,
     width: "100%",
-    color: theme.palette.primary.main,
+    color: "black",
     textAlign: "center",
     fontSize: "16px",
   },
-}));
+});
 
 export function AppFooter() {
   const classes = useStyles();
