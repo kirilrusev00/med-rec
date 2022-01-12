@@ -5,6 +5,7 @@ import { Login } from "../../pages/Login";
 import { AppFooter } from "../AppFooter";
 import { Library } from "../../pages/Library";
 import { Register } from "../../pages/Register";
+import { Drugs } from "../Drugs";
 
 export function App() {
   return (
@@ -18,6 +19,7 @@ export function App() {
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/pharmacy/:id" element={<Drugs />} />
         <Route path="/" element={<Library />} />
       </Routes>
       <AppFooter />
