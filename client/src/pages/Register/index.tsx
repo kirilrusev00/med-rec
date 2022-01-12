@@ -2,38 +2,27 @@ import {
   Box,
   Button,
   Container,
-  NativeSelect,
   TextField,
   Typography,
   Link,
-  makeStyles,
 } from "@material-ui/core";
 import React, { FormEvent, useState } from "react";
 import { Link as RouteLink } from "react-router-dom";
 
-const useStyles = makeStyles({
-  select: {
-    paddingLeft: 5,
-  },
-});
-
-// TODO:
-// Discuss what data should the user provide in order to register
+// Only users will register
 
 export function Register() {
-  const classes = useStyles();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [age, setAge] = useState("");
-  const [sex, setSex] = useState("Male");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
 
   async function submit(event: FormEvent) {
     event.preventDefault();
-    if (!username || !password || !age || !sex) {
+    if (!username || !password || !firstName || !lastName || !email) {
       return;
     }
-
-    const ageToNumber = Number(age);
 
     // TODO:
     // 1) Create auth service and register the user
@@ -63,23 +52,28 @@ export function Register() {
           />
 
           <TextField
-            name="age"
-            value={age}
-            onChange={(event) => setAge(event.target.value)}
-            label="Age"
+            name="firstName"
+            value={firstName}
+            onChange={(event) => setFirstName(event.target.value)}
+            label="First Name"
             variant="outlined"
-            type="number"
           />
 
-          <NativeSelect
-            value={sex}
-            onChange={(event) => setSex(event.target.value)}
-            className={classes.select}
-          >
-            <option>Male</option>
-            <option>Female</option>
-            <option>Other</option>
-          </NativeSelect>
+          <TextField
+            name="lastName"
+            value={lastName}
+            onChange={(event) => setLastName(event.target.value)}
+            label="Last name"
+            variant="outlined"
+          />
+
+          <TextField
+            name="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            label="Email"
+            variant="outlined"
+          />
 
           <Button type="submit" color="primary" variant="contained">
             Register
