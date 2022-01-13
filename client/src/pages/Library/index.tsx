@@ -1,3 +1,5 @@
+import { Patient } from "../../components/Patient";
+
 // TODO:
 // 1) If the user is patient:
 // Show a list of pharmacies (+ option for searching)
@@ -8,5 +10,5 @@
 // When clicking on a drug show details about the drug (+ option for deleting a drug)
 
 export function Library() {
-  return <>Homepage</>;
+  return <Patient />;
 }

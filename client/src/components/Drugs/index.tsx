@@ -1,22 +1,14 @@
 import { Box, Container, InputAdornment, TextField } from "@material-ui/core";
-import { PharmacyList, PharmacyListProps } from "../PharmacyList";
 import { Search } from "@material-ui/icons";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { DrugList } from "../DrugList";
 
-// TODO: Remove hardcoded pharmacies and get them from the server (include searching)
-
-let pharmacyList: PharmacyListProps = {
-  pharmacies: [
-    { id: 1, name: "Mareshki", address: "Ralevitsa 69" },
-    { id: 2, name: "Pharmacy 24/7", address: "Unknown address 404" },
-    { id: 3, name: "Elvira", address: "Bulgaria 143" },
-  ],
-};
-
-export function Patient() {
+export function Drugs() {
+  const { id } = useParams<{ id: string }>();
   const [search, setSearch] = useState("");
 
-  return (
+  return id ? (
     <>
       <Box textAlign="center" marginTop={5} marginBottom={5}>
         <TextField
@@ -34,8 +26,8 @@ export function Patient() {
       </Box>
 
       <Container maxWidth="md">
-        <PharmacyList pharmacies={pharmacyList.pharmacies} />
+        <DrugList pharmacyId={Number(id)} />
       </Container>
     </>
-  );
+  ) : null;
 }

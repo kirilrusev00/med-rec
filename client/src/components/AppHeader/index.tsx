@@ -1,86 +1,44 @@
 import React from "react";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
 import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
+import { Button, Link } from "@material-ui/core";
+import { Link as RouterLink } from "react-router-dom";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1,
-    },
-  })
-);
+const useStyles = makeStyles({
+  title: {
+    flexGrow: 1,
+    fontSize: "20px",
+    color: "white",
+  },
+  icon: {
+    marginRight: "10px",
+  },
+});
 
 export function AppHeader() {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   return (
     <AppBar position="static">
       <Toolbar>
-        <IconButton
-          edge="start"
-          className={classes.menuButton}
-          color="inherit"
-          aria-label="menu"
+        <LocalHospitalIcon className={classes.icon} />
+        <Link
+          className={classes.title}
+          color="secondary"
+          underline="none"
+          component={RouterLink}
+          to="/"
         >
-          <LocalHospitalIcon />
-        </IconButton>
-        <Typography variant="h6" className={classes.title}>
           MedRec
-        </Typography>
-        <>
-          <IconButton
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            onClick={handleMenu}
-            color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
+        </Link>
 
-          {/* TODO:
-          Show the menu only if user is logged in */}
+        {/* TODO:
+          - Show the button only if user is logged in 
+          - Make the button work */}
 
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            open={open}
-            onClose={handleClose}
-          >
-            {/* TODO: Make this work after auth service is created */}
-
-            <MenuItem onClick={handleClose}>Logout</MenuItem>
-          </Menu>
-        </>
+        <Button color="inherit">Logout</Button>
       </Toolbar>
     </AppBar>
   );
