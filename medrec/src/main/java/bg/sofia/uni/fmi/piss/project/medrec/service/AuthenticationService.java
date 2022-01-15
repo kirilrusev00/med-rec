@@ -25,7 +25,7 @@ public class AuthenticationService {
     public void registerPatient(UserRegistrationDto user) throws UserAlreadyExistsException {
         checkIfUserExists(user.getUsername());
 
-        UserEntity userEntity = toUserEntity(user, Type.PATIENT);
+        UserEntity userEntity = toUserEntity(user, Type.patient);
         userRepository.save(userEntity);
     }
 
@@ -58,7 +58,6 @@ public class AuthenticationService {
 
     private UserEntity toUserEntity(UserRegistrationDto user, Type type) {
         UserEntity userEntity = modelMapper.map(user, UserEntity.class);
-        userEntity.setName(user.getFirstName());
         userEntity.setType(type);
 
         return userEntity;

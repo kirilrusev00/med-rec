@@ -13,7 +13,7 @@ public class UserRegistrationDto {
 
     private String password;
 
-    private String firstName;
+    private String name;
 
     private String lastName;
 
