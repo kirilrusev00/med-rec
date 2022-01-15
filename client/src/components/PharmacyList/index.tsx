@@ -1,3 +1,4 @@
+import React from "react";
 import { Pharmacy } from "../../models/Pharmacy";
 import { PharmacyCard } from "../PharmacyCard";
 

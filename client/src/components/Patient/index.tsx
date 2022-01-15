@@ -1,9 +1,12 @@
+import React from "react";
 import { Box, Container, InputAdornment, TextField } from "@material-ui/core";
 import { PharmacyList, PharmacyListProps } from "../PharmacyList";
 import { Search } from "@material-ui/icons";
 import { useState } from "react";
 
-// TODO: Remove hardcoded pharmacies and get them from the server (include searching)
+// TODO:
+// - Remove hardcoded pharmacies and get them from the server using useAsync (include searching as filtration)
+// - Handle errors
 
 let pharmacyList: PharmacyListProps = {
   pharmacies: [

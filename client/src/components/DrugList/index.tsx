@@ -1,9 +1,12 @@
+import React from "react";
 import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Drug } from "../../models/Drug";
 import { DrugCard } from "../DrugCard";
 
-// TODO: Remove hardcoded drugs and get them from the server (include searching)
+// TODO:
+// - Remove hardcoded drugs and get them from the server with useAsync (include searching as filtration)
+// - Handle errors
 
 let drugs: Drug[] = [
   { id: 1, name: "Paracetamol" },
