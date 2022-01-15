@@ -1,10 +1,11 @@
+import React from "react";
 import { Box, Container, InputAdornment, TextField } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { DrugList } from "../DrugList";
+import { DrugList } from "../../components/DrugList";
 
-export function Drugs() {
+export function PharmacyDrugs() {
   const { id } = useParams<{ id: string }>();
   const [search, setSearch] = useState("");
 

@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Card,
   CardActionArea,
@@ -5,7 +6,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
 import { Drug } from "../../models/Drug";
 
 export interface DrugCardProps {
@@ -25,7 +25,7 @@ export function DrugCard({ drug, pharmacyId }: DrugCardProps) {
             {drug.name}
           </Typography>
 
-          {/* TODO: Add the other info about the drugs */}
+          {/* TODO: Add other info about the drugs */}
         </CardContent>
       </CardActionArea>
     </Card>
