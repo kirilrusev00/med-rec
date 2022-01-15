@@ -1,8 +1,10 @@
 package bg.sofia.uni.fmi.piss.project.medrec;
 
 import bg.sofia.uni.fmi.piss.project.medrec.service.QrCodeService;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 import java.util.Scanner;
 
@@ -18,4 +20,8 @@ public class MedrecApplication {
 		System.out.println(QrCodeService.decodeQrCode(filePath));
 	}
 
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
+	}
 }
