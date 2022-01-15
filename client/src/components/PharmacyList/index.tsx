@@ -1,9 +1,9 @@
 import React from "react";
-import { Pharmacy } from "../../models/Pharmacy";
+import { User } from "../../models/User";
 import { PharmacyCard } from "../PharmacyCard";
 
 export interface PharmacyListProps {
-  pharmacies: Pharmacy[];
+  pharmacies: User[];
 }
 
 export function PharmacyList({ pharmacies }: PharmacyListProps) {

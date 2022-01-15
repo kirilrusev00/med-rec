@@ -1,20 +1,11 @@
 import React from "react";
 import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { DrugCardForPatient } from "../DrugCardForPatient";
 import { Drug } from "../../models/Drug";
-import { DrugCard } from "../DrugCard";
 
-// TODO:
-// - Remove hardcoded drugs and get them from the server with useAsync (include searching as filtration)
-// - Handle errors
-
-let drugs: Drug[] = [
-  { id: 1, name: "Paracetamol" },
-  { id: 2, name: "Aspirin" },
-  { id: 3, name: "Nurofen" },
-];
-
-export interface DrugListProps {
+export interface DrugListForPatientProps {
+  drugs: Drug[];
   pharmacyId: number;
 }
 
@@ -26,13 +17,16 @@ const useStyles = makeStyles({
   },
 });
 
-export function DrugList({ pharmacyId }: DrugListProps) {
+export function DrugListForPatient({
+  drugs,
+  pharmacyId,
+}: DrugListForPatientProps) {
   const classes = useStyles();
 
   return drugs ? (
     <Box className={classes.list}>
       {drugs.map((drug) => (
-        <DrugCard key={drug.id} drug={drug} pharmacyId={pharmacyId} />
+        <DrugCardForPatient key={drug.id} drug={drug} pharmacyId={pharmacyId} />
       ))}
     </Box>
   ) : null;

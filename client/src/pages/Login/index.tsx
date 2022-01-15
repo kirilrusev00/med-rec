@@ -7,11 +7,16 @@ import {
   Link,
 } from "@material-ui/core";
 import React, { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link as RouteLink } from "react-router-dom";
+import { authService } from "../../services/auth-service";
 
 export function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<any>();
+
+  const history = useNavigate();
 
   async function submit(event: FormEvent) {
     event.preventDefault();
@@ -20,10 +25,14 @@ export function Login() {
       return;
     }
 
-    // TODO:
-    // 1) Create auth service and login the user
-    // 2) Redirect to homepage
-    // 3) Handle errors
+    try {
+      await authService.login(username, password);
+    } catch (error) {
+      setError(error);
+      return;
+    }
+
+    history("/");
   }
 
   return (
@@ -46,6 +55,8 @@ export function Login() {
             variant="outlined"
             type="password"
           />
+
+          {error && <Typography color="error">{error.message}</Typography>}
 
           <Button type="submit" color="primary" variant="contained">
             Login

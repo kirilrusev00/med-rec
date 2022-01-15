@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
 import { Button, Link } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
+import { useCurrentUser } from "../../hooks/use-current-user";
+import { authService } from "../../services/auth-service";
 
 const useStyles = makeStyles({
   title: {
@@ -19,6 +21,13 @@ const useStyles = makeStyles({
 
 export function AppHeader() {
   const classes = useStyles();
+  const user = useCurrentUser();
+  const [anchorEl, setAnchorEl] = useState<Element | null>(null);
+
+  function logout() {
+    setAnchorEl(null);
+    authService.logout();
+  }
 
   return (
     <AppBar position="static">
@@ -34,11 +43,11 @@ export function AppHeader() {
           MedRec
         </Link>
 
-        {/* TODO:
-          - Show the button only if user is logged in 
-          - Make the button work */}
-
-        <Button color="inherit">Logout</Button>
+        {user && (
+          <Button color="inherit" onClick={logout}>
+            Logout
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   );

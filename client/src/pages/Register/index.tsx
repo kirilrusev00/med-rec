@@ -7,7 +7,8 @@ import {
   Link,
 } from "@material-ui/core";
 import React, { FormEvent, useState } from "react";
-import { Link as RouteLink } from "react-router-dom";
+import { Link as RouteLink, useNavigate } from "react-router-dom";
+import { authService } from "../../services/auth-service";
 
 // Only users will register
 
@@ -17,6 +18,9 @@ export function Register() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [error, setError] = useState<any>();
+
+  const history = useNavigate();
 
   async function submit(event: FormEvent) {
     event.preventDefault();
@@ -24,10 +28,20 @@ export function Register() {
       return;
     }
 
-    // TODO:
-    // 1) Create auth service and register the user
-    // 2) Redirect to homepage
-    // 3) Handle errors
+    try {
+      await authService.register(
+        username,
+        password,
+        firstName,
+        lastName,
+        email
+      );
+    } catch (error) {
+      setError(error);
+      return;
+    }
+
+    history("/login");
   }
 
   return (
@@ -74,6 +88,8 @@ export function Register() {
             label="Email"
             variant="outlined"
           />
+
+          {error && <Typography color="error">{error.message}</Typography>}
 
           <Button type="submit" color="primary" variant="contained">
             Register

@@ -1,15 +1,41 @@
 import React from "react";
-import { Box, Container, InputAdornment, TextField } from "@material-ui/core";
+import {
+  Box,
+  Container,
+  InputAdornment,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import { Search } from "@material-ui/icons";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { DrugList } from "../../components/DrugList";
+import { DrugListForPatient } from "../../components/DrugListForPatient";
+import { useAsync } from "../../hooks/use-async";
+import { drugService } from "../../services/drug-service";
+import { Spinner } from "../../components/Spinner";
 
 export function PharmacyDrugs() {
   const { id } = useParams<{ id: string }>();
   const [search, setSearch] = useState("");
 
-  return id ? (
+  const {
+    data: drugs,
+    loading,
+    error,
+  } = useAsync(
+    () => drugService.getAllDrugsOfPharmacy(Number(id), search),
+    [search]
+  );
+
+  if (error) {
+    <Typography color="error">{error.message}</Typography>;
+  }
+
+  if (loading) {
+    <Spinner />;
+  }
+
+  return drugs ? (
     <>
       <Box textAlign="center" marginTop={5} marginBottom={5}>
         <TextField
@@ -27,7 +53,7 @@ export function PharmacyDrugs() {
       </Box>
 
       <Container maxWidth="md">
-        <DrugList pharmacyId={Number(id)} />
+        <DrugListForPatient drugs={drugs!} pharmacyId={Number(id)} />
       </Container>
     </>
   ) : null;
