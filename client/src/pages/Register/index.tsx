@@ -15,7 +15,7 @@ import { authService } from "../../services/auth-service";
 export function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
+  const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState<any>();
@@ -24,18 +24,12 @@ export function Register() {
 
   async function submit(event: FormEvent) {
     event.preventDefault();
-    if (!username || !password || !firstName || !lastName || !email) {
+    if (!username || !password || !name || !lastName || !email) {
       return;
     }
 
     try {
-      await authService.register(
-        username,
-        password,
-        firstName,
-        lastName,
-        email
-      );
+      await authService.register(username, password, name, lastName, email);
     } catch (error) {
       setError(error);
       return;
@@ -67,8 +61,8 @@ export function Register() {
 
           <TextField
             name="firstName"
-            value={firstName}
-            onChange={(event) => setFirstName(event.target.value)}
+            value={name}
+            onChange={(event) => setName(event.target.value)}
             label="First Name"
             variant="outlined"
           />

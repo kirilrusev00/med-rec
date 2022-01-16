@@ -31,14 +31,14 @@ class AuthService {
   async register(
     username: string,
     password: string,
-    firstName: string,
+    name: string,
     lastName: string,
     email: string
   ) {
     await this.httpService.post("/auth/register", {
       username,
       password,
-      firstName,
+      name,
       lastName,
       email,
     });
