@@ -54,44 +54,40 @@ export function DrugPageForPatient() {
     <Spinner />;
   }
 
-  {
-    drug && (
-      <Container maxWidth="md" className={classes.container}>
-        <Typography className={classes.title} variant="h4">
-          {drug.genericName}
-        </Typography>
+  return drug ? (
+    <Container maxWidth="md" className={classes.container}>
+      <Typography className={classes.title} variant="h4">
+        {drug.genericName}
+      </Typography>
 
-        <Box marginTop={5} className={classes.box}>
-          <Typography>
-            <Typography className={classes.description}>Brand:</Typography>
-            {drug.brandName}
+      <Box marginTop={5} className={classes.box}>
+        <Typography>
+          <Typography className={classes.description}>Brand:</Typography>
+          {drug.brandName}
+        </Typography>
+        <Typography>
+          <Typography className={classes.description}>Substance:</Typography>
+          {drug.substanceName}
+        </Typography>
+        <Typography>
+          <Typography className={classes.description}>Manufacturer:</Typography>
+          {drug.manufacturerName}
+        </Typography>
+        <Typography>
+          <Typography className={classes.description}>Dosage:</Typography>
+          {drug.dosageForm}
+        </Typography>
+        <Typography>
+          <Typography className={classes.description}>Route:</Typography>
+          {drug.route}
+        </Typography>
+        <Typography>
+          <Typography className={classes.description}>
+            Marketing status:
           </Typography>
-          <Typography>
-            <Typography className={classes.description}>Substance:</Typography>
-            {drug.substanceName}
-          </Typography>
-          <Typography>
-            <Typography className={classes.description}>
-              Manufacturer:
-            </Typography>
-            {drug.manufacturerName}
-          </Typography>
-          <Typography>
-            <Typography className={classes.description}>Dosage:</Typography>
-            {drug.dosageForm}
-          </Typography>
-          <Typography>
-            <Typography className={classes.description}>Route:</Typography>
-            {drug.route}
-          </Typography>
-          <Typography>
-            <Typography className={classes.description}>
-              Marketing status:
-            </Typography>
-            {drug.marketingStatus}
-          </Typography>
-        </Box>
-      </Container>
-    );
-  }
+          {drug.marketingStatus}
+        </Typography>
+      </Box>
+    </Container>
+  ) : null;
 }
