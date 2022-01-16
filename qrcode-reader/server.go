@@ -146,7 +146,8 @@ func qrDecoder(localQrPath string) (*gozxing.Result, error) {
 	return qrReader.Decode(bmp, nil)
 }
 
-func convertQRCodeToJson(localQrPath string) string {
+func convertQRCodeToJson(localQrFileName string) string {
+	localQrPath := "resources/" + localQrFileName
 	result, error := qrDecoder(localQrPath)
 
 	if result == nil || error != nil {
