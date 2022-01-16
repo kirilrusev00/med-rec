@@ -34,4 +34,53 @@ public class Drug {
         }
         return "Drug [results=" + results + "]";
     }
+
+    public String getBrandName() {
+        if (results.isEmpty()) {
+            return null;
+        }
+        return results.get(0).getOpenFDA().getBrandName().get(0);
+    }
+
+    public String getGenericName() {
+        if (results.isEmpty()) {
+            return null;
+        }
+        return results.get(0).getOpenFDA().getGenericName().get(0);
+    }
+
+    public String getSubstanceName() {
+        if (results.isEmpty()) {
+            return null;
+        }
+        return results.get(0).getOpenFDA().getSubstanceName().get(0);
+    }
+
+    public String getManufacturerName() {
+        if (results.isEmpty()) {
+            return null;
+        }
+        return results.get(0).getOpenFDA().getManufacturerName().get(0);
+    }
+
+    public String getDosageForm() {
+        if (results.isEmpty() || results.get(0).getProducts().isEmpty()) {
+            return null;
+        }
+        return results.get(0).getProducts().get(0).getDosageForm();
+    }
+
+    public String getMarketingStatus() {
+        if (results.isEmpty() || results.get(0).getProducts().isEmpty()) {
+            return null;
+        }
+        return results.get(0).getProducts().get(0).getMarketingStatus();
+    }
+
+    public String getRoute() {
+        if (results.isEmpty() || results.get(0).getProducts().isEmpty()) {
+            return null;
+        }
+        return results.get(0).getProducts().get(0).getRoute();
+    }
 }
