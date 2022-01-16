@@ -5,16 +5,23 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.net.http.HttpClient;
+
 @SpringBootApplication
 public class MedrecApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MedrecApplication.class, args);
-
+	@Bean
+	public static HttpClient getHttpClient() {
+		return HttpClient.newBuilder().build();
 	}
 
 	@Bean
 	public ModelMapper modelMapper() {
 		return new ModelMapper();
 	}
+
+	public static void main(String[] args) {
+		SpringApplication.run(MedrecApplication.class, args);
+	}
+
 }
