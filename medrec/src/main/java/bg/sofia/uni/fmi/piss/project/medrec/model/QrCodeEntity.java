@@ -23,5 +23,5 @@ public class QrCodeEntity {
     private String filename;
 
     @Column(name = "user_id", nullable = false)
-    private String userId;
+    private Long userId;
 }

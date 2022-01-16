@@ -1,12 +1,12 @@
 package bg.sofia.uni.fmi.piss.project.medrec.service;
 
+import bg.sofia.uni.fmi.piss.project.medrec.dto.DecodedQrCodeResponseDto;
 import bg.sofia.uni.fmi.piss.project.medrec.dto.QrCodeResponseDto;
 import bg.sofia.uni.fmi.piss.project.medrec.exceptions.CouldNotDecodeException;
-import bg.sofia.uni.fmi.piss.project.medrec.exceptions.QrCodeNotFoundException;
 import bg.sofia.uni.fmi.piss.project.medrec.exceptions.ExternalServiceNotAvailableException;
+import bg.sofia.uni.fmi.piss.project.medrec.exceptions.QrCodeNotFoundException;
 import bg.sofia.uni.fmi.piss.project.medrec.model.QrCodeEntity;
 import bg.sofia.uni.fmi.piss.project.medrec.repository.QrCodeRepository;
-import bg.sofia.uni.fmi.piss.project.medrec.service.fda.Drug;
 import bg.sofia.uni.fmi.piss.project.medrec.service.qr.QrCode;
 import com.google.gson.Gson;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -20,6 +20,8 @@ import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.nio.channels.Channels;
 import java.nio.channels.SocketChannel;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,7 +30,7 @@ public class QrCodeService {
     private final QrCodeRepository qrCodeRepository;
     private final ModelMapper modelMapper;
 
-    public QrCodeResponseDto decodeQrCode(Long qrCodeId)
+    public DecodedQrCodeResponseDto decodeQrCode(Long qrCodeId)
             throws QrCodeNotFoundException, CouldNotDecodeException, ExternalServiceNotAvailableException {
         String filename = getFileName(qrCodeId);
 
@@ -39,6 +41,23 @@ public class QrCodeService {
         }
 
         return toQrCodeResponseDto(decodedQrCode);
+    }
+
+    public List<QrCodeResponseDto> getQrCodesForUser(Long userId) {
+        Optional<List<QrCodeEntity>> qrCodes = qrCodeRepository.findAllByUserId(userId);
+        List<QrCodeResponseDto> qrCodesResponse = new ArrayList<>();
+
+        if (qrCodes.isEmpty()) {
+            return qrCodesResponse;
+        }
+
+        for (QrCodeEntity qrCodeEntity : qrCodes.get()) {
+            QrCodeResponseDto qrCodeResponse = modelMapper.map(qrCodeEntity, QrCodeResponseDto.class);
+            qrCodeResponse.setPathName(qrCodeEntity.getFilename());
+
+            qrCodesResponse.add(qrCodeResponse);
+        }
+        return qrCodesResponse;
     }
 
     private String getFileName(Long qrCodeId) throws QrCodeNotFoundException {
@@ -70,10 +89,10 @@ public class QrCodeService {
         }
     }
 
-    private QrCodeResponseDto toQrCodeResponseDto(String decodedQrCode) {
+    private DecodedQrCodeResponseDto toQrCodeResponseDto(String decodedQrCode) {
         Gson gson = new Gson();
         QrCode qr = gson.fromJson(decodedQrCode, QrCode.class);
 
-        return modelMapper.map(qr.getPrescription(), QrCodeResponseDto.class);
+        return modelMapper.map(qr.getPrescription(), DecodedQrCodeResponseDto.class);
     }
 }

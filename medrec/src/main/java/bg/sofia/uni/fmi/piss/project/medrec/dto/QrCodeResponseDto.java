@@ -6,9 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class QrCodeResponseDto {
-    private String drugName;
 
-    private String in;
+    private String id;
 
-    private String date;
+    private String pathName;
 }
