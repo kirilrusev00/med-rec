@@ -1,6 +1,6 @@
 export interface User {
   id: number;
-  type: "patient" | "pharmacy";
-  name: string;
-  address: string;
+  type: "patient" | "pharmacy" | undefined;
+  name: string | undefined;
+  address: string | undefined;
 }

@@ -16,7 +16,7 @@ export function PrescriptionPage() {
   } = useAsync(() => prescriptionService.getPrescriptions(user?.id), []);
 
   if (error) {
-    <Typography color="error">{error.message}</Typography>;
+    <Typography color="error">Error</Typography>;
   }
 
   if (loading) {

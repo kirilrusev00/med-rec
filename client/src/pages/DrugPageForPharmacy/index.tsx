@@ -52,7 +52,7 @@ export function DrugPageForPharmacy() {
   }
 
   if (error) {
-    <Typography color="error">{error.message}</Typography>;
+    <Typography color="error">Error</Typography>;
   }
 
   if (loading) {
@@ -66,32 +66,46 @@ export function DrugPageForPharmacy() {
       </Typography>
 
       <Box marginTop={5} className={classes.box}>
-        <Typography>
-          <Typography className={classes.description}>Brand:</Typography>
-          {drug.genericName}
-        </Typography>
-        <Typography>
-          <Typography className={classes.description}>Substance:</Typography>
-          {drug.substanceName}
-        </Typography>
-        <Typography>
-          <Typography className={classes.description}>Manufacturer:</Typography>
-          {drug.manufacturerName}
-        </Typography>
-        <Typography>
-          <Typography className={classes.description}>Dosage:</Typography>
-          {drug.dosageForm}
-        </Typography>
-        <Typography>
-          <Typography className={classes.description}>Route:</Typography>
-          {drug.route}
-        </Typography>
-        <Typography>
-          <Typography className={classes.description}>
-            Marketing status:
+        {drug.genericName && (
+          <Typography>
+            <Typography className={classes.description}>Brand:</Typography>
+            {drug.genericName}
           </Typography>
-          {drug.marketingStatus}
-        </Typography>
+        )}
+        {drug.substanceName && (
+          <Typography>
+            <Typography className={classes.description}>Substance:</Typography>
+            {drug.substanceName}
+          </Typography>
+        )}
+        {drug.manufacturerName && (
+          <Typography>
+            <Typography className={classes.description}>
+              Manufacturer:
+            </Typography>
+            {drug.manufacturerName}
+          </Typography>
+        )}
+        {drug.dosageForm && (
+          <Typography>
+            <Typography className={classes.description}>Dosage:</Typography>
+            {drug.dosageForm}
+          </Typography>
+        )}
+        {drug.route && (
+          <Typography>
+            <Typography className={classes.description}>Route:</Typography>
+            {drug.route}
+          </Typography>
+        )}
+        {drug.marketingStatus && (
+          <Typography>
+            <Typography className={classes.description}>
+              Marketing status:
+            </Typography>
+            {drug.marketingStatus}
+          </Typography>
+        )}
       </Box>
 
       <Button

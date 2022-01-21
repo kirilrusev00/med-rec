@@ -1,3 +1,4 @@
+import React, { FormEvent, useState } from "react";
 import {
   Box,
   Button,
@@ -6,7 +7,6 @@ import {
   Typography,
   Link,
 } from "@material-ui/core";
-import React, { FormEvent, useState } from "react";
 import { Link as RouteLink, useNavigate } from "react-router-dom";
 import { authService } from "../../services/auth-service";
 
@@ -83,7 +83,7 @@ export function Register() {
             variant="outlined"
           />
 
-          {error && <Typography color="error">{error.message}</Typography>}
+          {error && <Typography color="error">Error</Typography>}
 
           <Button type="submit" color="primary" variant="contained">
             Register

@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
-import { Box, Button, Link, Typography } from "@material-ui/core";
+import { Button, Link, Typography } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
 import { useCurrentUser } from "../../hooks/use-current-user";
 import { authService } from "../../services/auth-service";

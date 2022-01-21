@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardActionArea, CardMedia, Typography } from "@material-ui/core";
+import { Card, CardActionArea, CardMedia } from "@material-ui/core";
 import { Prescription } from "../../models/Prescription";
 import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
@@ -21,7 +21,6 @@ const useStyles = makeStyles({
 
 export function PrescriptionCard({ prescription }: PrescriptionCardProps) {
   const classes = useStyles();
-  console.log(prescription);
 
   return (
     <Card className={classes.card}>

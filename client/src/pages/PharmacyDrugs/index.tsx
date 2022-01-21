@@ -28,7 +28,7 @@ export function PharmacyDrugs() {
   );
 
   if (error) {
-    <Typography color="error">{error.message}</Typography>;
+    <Typography color="error">Error</Typography>;
   }
 
   if (loading) {

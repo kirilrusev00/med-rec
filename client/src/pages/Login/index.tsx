@@ -1,3 +1,4 @@
+import React, { FormEvent, useState } from "react";
 import {
   Box,
   Button,
@@ -6,7 +7,6 @@ import {
   Typography,
   Link,
 } from "@material-ui/core";
-import React, { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link as RouteLink } from "react-router-dom";
 import { authService } from "../../services/auth-service";
@@ -56,7 +56,7 @@ export function Login() {
             type="password"
           />
 
-          {error && <Typography color="error">{error.message}</Typography>}
+          {error && <Typography color="error">Error</Typography>}
 
           <Button type="submit" color="primary" variant="contained">
             Login

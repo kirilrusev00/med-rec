@@ -1,9 +1,11 @@
-import { Container, Typography, Box, Button } from "@material-ui/core";
-import { useLocation, useParams } from "react-router-dom";
+import React from "react";
+import { Container, Typography, Box } from "@material-ui/core";
+import { useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Prescription } from "../../models/Prescription";
 import { useAsync } from "../../hooks/use-async";
 import { prescriptionService } from "../../services/prescription-service";
+import { Spinner } from "../../components/Spinner";
 
 const useStyles = makeStyles({
   container: {
@@ -43,6 +45,14 @@ export function SinglePrescription() {
     loading,
     error,
   } = useAsync(() => prescriptionService.getPrescription(Number(id)), []);
+
+  if (error) {
+    <Typography color="error">Error</Typography>;
+  }
+
+  if (loading) {
+    <Spinner />;
+  }
 
   return prescription ? (
     <Container maxWidth="md" className={classes.container}>

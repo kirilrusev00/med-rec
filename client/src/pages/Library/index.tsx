@@ -1,5 +1,5 @@
-import { Typography } from "@material-ui/core";
 import React from "react";
+import { Typography } from "@material-ui/core";
 import { Patient } from "../../components/Patient";
 import { Pharmacy } from "../../components/Pharmacy";
 import { useCurrentUser } from "../../hooks/use-current-user";

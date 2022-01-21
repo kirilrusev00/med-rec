@@ -30,12 +30,14 @@ export function DrugCardForPharmacy({ drug }: DrugCardForPharmacyProps) {
             {drug.brandName}
           </Typography>
 
-          <Typography gutterBottom variant="body2" component="h2">
-            <Typography className={classes.description}>
-              Manufacturer:
-            </Typography>{" "}
-            {drug.manufacturerName}
-          </Typography>
+          {drug.manufacturerName && (
+            <Typography gutterBottom variant="body2" component="h2">
+              <Typography className={classes.description}>
+                Manufacturer:
+              </Typography>{" "}
+              {drug.manufacturerName}
+            </Typography>
+          )}
         </CardContent>
       </CardActionArea>
     </Card>
