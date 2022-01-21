@@ -13,4 +13,8 @@ public class UserDto {
     private Long id;
 
     private Type type;
+
+    private String name;
+
+    private String address;
 }
