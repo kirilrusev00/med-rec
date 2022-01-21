@@ -34,7 +34,7 @@ export function DrugCardForPatient({
       >
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {drug.genericName}
+            {drug.brandName}
           </Typography>
 
           <Typography gutterBottom variant="body2" component="h2">

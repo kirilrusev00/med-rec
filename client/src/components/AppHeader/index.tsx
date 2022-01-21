@@ -3,15 +3,21 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
-import { Button, Link } from "@material-ui/core";
+import { Box, Button, Link, Typography } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
 import { useCurrentUser } from "../../hooks/use-current-user";
 import { authService } from "../../services/auth-service";
 
 const useStyles = makeStyles({
   title: {
-    flexGrow: 1,
     fontSize: "20px",
+    color: "white",
+  },
+  prescription: {
+    flexGrow: 1,
+    marginLeft: "15px",
+  },
+  prescriptionLink: {
     color: "white",
   },
   icon: {
@@ -35,7 +41,6 @@ export function AppHeader() {
         <LocalHospitalIcon className={classes.icon} />
         <Link
           className={classes.title}
-          color="secondary"
           underline="none"
           component={RouterLink}
           to="/"
@@ -44,9 +49,22 @@ export function AppHeader() {
         </Link>
 
         {user && (
-          <Button color="inherit" onClick={logout}>
-            Logout
-          </Button>
+          <>
+            <Typography variant="body1" className={classes.prescription}>
+              <Link
+                underline="none"
+                component={RouterLink}
+                to="/prescriptions"
+                className={classes.prescriptionLink}
+              >
+                Prescriptions
+              </Link>
+            </Typography>
+
+            <Button color="inherit" onClick={logout}>
+              Logout
+            </Button>
+          </>
         )}
       </Toolbar>
     </AppBar>

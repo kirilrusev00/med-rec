@@ -53,7 +53,7 @@ export function PharmacyDrugs() {
       </Box>
 
       <Container maxWidth="md">
-        <DrugListForPatient drugs={drugs!} pharmacyId={Number(id)} />
+        <DrugListForPatient drugs={drugs} pharmacyId={Number(id)} />
       </Container>
     </>
   ) : null;

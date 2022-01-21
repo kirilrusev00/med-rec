@@ -1,8 +1,7 @@
 import React from "react";
-import { Box, Button, Container, Typography } from "@material-ui/core";
+import { Box, Container, Typography } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { useCurrentUser } from "../../hooks/use-current-user";
 import { useAsync } from "../../hooks/use-async";
 import { Spinner } from "../../components/Spinner";
 import { drugService } from "../../services/drug-service";
@@ -57,13 +56,13 @@ export function DrugPageForPatient() {
   return drug ? (
     <Container maxWidth="md" className={classes.container}>
       <Typography className={classes.title} variant="h4">
-        {drug.genericName}
+        {drug.brandName}
       </Typography>
 
       <Box marginTop={5} className={classes.box}>
         <Typography>
           <Typography className={classes.description}>Brand:</Typography>
-          {drug.brandName}
+          {drug.genericName}
         </Typography>
         <Typography>
           <Typography className={classes.description}>Substance:</Typography>

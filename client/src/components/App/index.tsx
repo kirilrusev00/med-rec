@@ -11,6 +11,8 @@ import { DrugPageForPatient } from "../../pages/DrugPageForPatient";
 import { CreateDrug } from "../../pages/CreateDrug";
 import { UserProvider } from "../../hooks/use-current-user";
 import { DrugPageForPharmacy } from "../../pages/DrugPageForPharmacy";
+import { SinglePrescription } from "../../pages/SinglePrescription";
+import { PrescriptionPage } from "../../pages/PrescriptionPage";
 
 export function App() {
   return (
@@ -28,6 +30,8 @@ export function App() {
           />
           <Route path="/drugs/new" element={<CreateDrug />} />
           <Route path="/drugs/:drugId" element={<DrugPageForPharmacy />} />
+          <Route path="/prescriptions/" element={<PrescriptionPage />} />
+          <Route path="/prescriptions/:id" element={<SinglePrescription />} />
           <Route path="/" element={<Library />} />
         </Routes>
         <AppFooter />

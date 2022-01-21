@@ -21,8 +21,8 @@ class DrugService {
     });
   }
 
-  createDrug(pharmacyId: number, genericName: string) {
-    return this.http.post<Drug>(`/pharmacy/${pharmacyId}/drug`, genericName);
+  createDrug(pharmacyId: number, brandName: string) {
+    return this.http.post<Drug>(`/pharmacy/${pharmacyId}/drug`, brandName);
   }
 
   deleteDrug(pharmacyId: number, drugId: number) {

@@ -24,11 +24,12 @@ const useStyles = makeStyles({
     width: "200px",
   },
 });
+
 export function CreateDrug() {
   const classes = useStyles();
   const user = useCurrentUser();
   const [fields, setFields] = useState({
-    genericName: "",
+    brandName: "",
   });
   const history = useNavigate();
 
@@ -37,7 +38,7 @@ export function CreateDrug() {
     loading,
     error,
   } = useAsyncAction(async () => {
-    const drug = await drugService.createDrug(user!.id, fields.genericName);
+    const drug = await drugService.createDrug(user!.id, fields.brandName);
 
     history(`drugs/${drug.id}`);
   });
@@ -63,12 +64,12 @@ export function CreateDrug() {
 
       <TextField
         label="Generic name"
-        value={fields.genericName}
+        value={fields.brandName}
         className={classes.field}
         onChange={(event) =>
           setFields({
             ...fields,
-            genericName: event.target.value,
+            brandName: event.target.value,
           })
         }
       />

@@ -62,13 +62,13 @@ export function DrugPageForPharmacy() {
   return drug ? (
     <Container maxWidth="md" className={classes.container}>
       <Typography className={classes.title} variant="h4">
-        {drug?.genericName}
+        {drug.brandName}
       </Typography>
 
       <Box marginTop={5} className={classes.box}>
         <Typography>
           <Typography className={classes.description}>Brand:</Typography>
-          {drug.brandName}
+          {drug.genericName}
         </Typography>
         <Typography>
           <Typography className={classes.description}>Substance:</Typography>
