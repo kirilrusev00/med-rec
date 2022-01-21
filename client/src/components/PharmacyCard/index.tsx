@@ -6,11 +6,11 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
-import { Pharmacy } from "../../models/Pharmacy";
 import { makeStyles } from "@material-ui/core/styles";
+import { User } from "../../models/User";
 
 export interface PharmacyCardProps {
-  pharmacy: Pharmacy;
+  pharmacy: User;
 }
 
 const useStyles = makeStyles({

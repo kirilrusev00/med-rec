@@ -1,23 +1,34 @@
 import React from "react";
-import { Box, Container, InputAdornment, TextField } from "@material-ui/core";
+import {
+  Box,
+  Container,
+  InputAdornment,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import { PharmacyList, PharmacyListProps } from "../PharmacyList";
 import { Search } from "@material-ui/icons";
 import { useState } from "react";
-
-// TODO:
-// - Remove hardcoded pharmacies and get them from the server using useAsync (include searching as filtration)
-// - Handle errors
-
-let pharmacyList: PharmacyListProps = {
-  pharmacies: [
-    { id: 1, name: "Mareshki", address: "Ralevitsa 69" },
-    { id: 2, name: "Pharmacy 24/7", address: "Unknown address 404" },
-    { id: 3, name: "Elvira", address: "Bulgaria 143" },
-  ],
-};
+import { useAsync } from "../../hooks/use-async";
+import { drugService } from "../../services/drug-service";
+import { Spinner } from "../Spinner";
 
 export function Patient() {
   const [search, setSearch] = useState("");
+
+  const {
+    data: pharmacyList,
+    loading,
+    error,
+  } = useAsync(() => drugService.getPharmacies(search), [search]);
+
+  if (error) {
+    <Typography color="error">Error</Typography>;
+  }
+
+  if (loading) {
+    <Spinner />;
+  }
 
   return (
     <>
@@ -37,7 +48,7 @@ export function Patient() {
       </Box>
 
       <Container maxWidth="md">
-        <PharmacyList pharmacies={pharmacyList.pharmacies} />
+        <PharmacyList pharmacies={pharmacyList ?? []} />
       </Container>
     </>
   );

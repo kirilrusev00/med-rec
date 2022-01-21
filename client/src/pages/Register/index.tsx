@@ -1,3 +1,4 @@
+import React, { FormEvent, useState } from "react";
 import {
   Box,
   Button,
@@ -6,28 +7,35 @@ import {
   Typography,
   Link,
 } from "@material-ui/core";
-import React, { FormEvent, useState } from "react";
-import { Link as RouteLink } from "react-router-dom";
+import { Link as RouteLink, useNavigate } from "react-router-dom";
+import { authService } from "../../services/auth-service";
 
 // Only users will register
 
 export function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
+  const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [error, setError] = useState<any>();
+
+  const history = useNavigate();
 
   async function submit(event: FormEvent) {
     event.preventDefault();
-    if (!username || !password || !firstName || !lastName || !email) {
+    if (!username || !password || !name || !lastName || !email) {
       return;
     }
 
-    // TODO:
-    // 1) Create auth service and register the user
-    // 2) Redirect to homepage
-    // 3) Handle errors
+    try {
+      await authService.register(username, password, name, lastName, email);
+    } catch (error) {
+      setError(error);
+      return;
+    }
+
+    history("/login");
   }
 
   return (
@@ -53,8 +61,8 @@ export function Register() {
 
           <TextField
             name="firstName"
-            value={firstName}
-            onChange={(event) => setFirstName(event.target.value)}
+            value={name}
+            onChange={(event) => setName(event.target.value)}
             label="First Name"
             variant="outlined"
           />
@@ -74,6 +82,8 @@ export function Register() {
             label="Email"
             variant="outlined"
           />
+
+          {error && <Typography color="error">Error</Typography>}
 
           <Button type="submit" color="primary" variant="contained">
             Register
