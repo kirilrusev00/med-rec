@@ -22,14 +22,14 @@ export function Register() {
 
   const history = useNavigate();
 
-  async function submit(event: FormEvent) {
+  function submit(event: FormEvent) {
     event.preventDefault();
     if (!username || !password || !name || !lastName || !email) {
       return;
     }
 
     try {
-      await authService.register(username, password, name, lastName, email);
+      authService.register(username, password, name, lastName, email);
     } catch (error) {
       setError(error);
       return;

@@ -6,7 +6,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { PharmacyList, PharmacyListProps } from "../PharmacyList";
+import { PharmacyList } from "../PharmacyList";
 import { Search } from "@material-ui/icons";
 import { useState } from "react";
 import { useAsync } from "../../hooks/use-async";

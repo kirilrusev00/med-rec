@@ -37,11 +37,8 @@ export function CreateDrug() {
     trigger: submit,
     loading,
     error,
-  } = useAsyncAction(async () => {
-    const drug = await drugService.createDrug(user!.id, fields.brandName);
-
-    history(`drugs/${drug.id}`);
-  });
+    perform,
+  } = useAsyncAction(async () => await drugService.createDrug(user!.id, fields.brandName));
 
   if (error) {
     <Typography color="error">Error</Typography>;
@@ -55,33 +52,38 @@ export function CreateDrug() {
     <Container
       maxWidth="xs"
       className={classes.form}
-      onSubmit={(event: FormEvent) => {
-        event.preventDefault();
-        submit();
-      }}
     >
+      <form  
+        onSubmit={(event: FormEvent) => {
+          event.preventDefault();
+          submit();
+          history("/");
+          perform();
+        }}
+      >
       <Typography variant="h5">Add a new drug</Typography>
 
-      <TextField
-        label="Generic name"
-        value={fields.brandName}
-        className={classes.field}
-        onChange={(event) =>
-          setFields({
-            ...fields,
-            brandName: event.target.value,
-          })
-        }
-      />
+        <TextField
+          label="Brand name"
+          value={fields.brandName}
+          className={classes.field}
+          onChange={(event) =>
+            setFields({
+              ...fields,
+              brandName: event.target.value,
+            })
+          }
+        />
 
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        className={classes.button}
-      >
-        Submit
-      </Button>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          className={classes.button}
+        >
+          Submit
+        </Button>
+      </form>
     </Container>
   );
 }

@@ -49,6 +49,8 @@ export class HttpService {
       body: body ? JSON.stringify(body) : undefined,
     });
 
+    // error handling - different status codes
+
     if (response.status !== 200) {
       let body;
       try {

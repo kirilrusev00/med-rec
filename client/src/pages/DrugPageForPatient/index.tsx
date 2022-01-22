@@ -60,45 +60,57 @@ export function DrugPageForPatient() {
       </Typography>
 
       <Box marginTop={5} className={classes.box}>
-        {drug.genericName && (
-          <Typography>
+        {drug.genericName !== "NULL" && (
+          <>
             <Typography className={classes.description}>Brand:</Typography>
-            {drug.genericName}
-          </Typography>
+            <Typography>
+              {drug.genericName}
+            </Typography>
+          </>
         )}
-        {drug.substanceName && (
-          <Typography>
+        {drug.substanceName !== "NULL" && (
+          <>
             <Typography className={classes.description}>Substance:</Typography>
-            {drug.substanceName}
-          </Typography>
+            <Typography>
+              {drug.substanceName}
+            </Typography>
+            </>
         )}
-        {drug.manufacturerName && (
-          <Typography>
+        {drug.manufacturerName !== "NULL" && (
+          <>
             <Typography className={classes.description}>
               Manufacturer:
             </Typography>
-            {drug.manufacturerName}
-          </Typography>
+            <Typography>
+              {drug.manufacturerName}
+            </Typography>
+          </>
         )}
-        {drug.dosageForm && (
-          <Typography>
+        {drug.dosageForm !== "NULL" && (
+          <>
             <Typography className={classes.description}>Dosage:</Typography>
-            {drug.dosageForm}
-          </Typography>
+            <Typography>
+              {drug.dosageForm}
+            </Typography>
+          </>
         )}
-        {drug.route && (
-          <Typography>
+        {drug.route !== "NULL" && (
+          <>
             <Typography className={classes.description}>Route:</Typography>
-            {drug.route}
-          </Typography>
+            <Typography>
+              {drug.route}
+            </Typography>
+          </>
         )}
-        {drug.marketingStatus && (
-          <Typography>
+        {drug.marketingStatus !== "NULL" && (
+          <>
             <Typography className={classes.description}>
               Marketing status:
             </Typography>
-            {drug.marketingStatus}
-          </Typography>
+            <Typography>
+              {drug.marketingStatus}
+            </Typography>
+          </>
         )}
       </Box>
     </Container>

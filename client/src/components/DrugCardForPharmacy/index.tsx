@@ -17,6 +17,9 @@ const useStyles = makeStyles({
   description: {
     fontWeight: "bold",
   },
+  card: {
+    height: "270px",
+  }
 });
 
 export function DrugCardForPharmacy({ drug }: DrugCardForPharmacyProps) {
@@ -24,18 +27,18 @@ export function DrugCardForPharmacy({ drug }: DrugCardForPharmacyProps) {
 
   return (
     <Card>
-      <CardActionArea component={RouterLink} to={`/drugs/${drug.id}`}>
+      <CardActionArea component={RouterLink} to={`/drugs/${drug.id}`} className={classes.card}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {drug.brandName}
           </Typography>
 
-          {drug.manufacturerName && (
+          {drug.dosageForm && (
             <Typography gutterBottom variant="body2" component="h2">
               <Typography className={classes.description}>
-                Manufacturer:
+                Dosage:
               </Typography>{" "}
-              {drug.manufacturerName}
+              {drug.dosageForm}
             </Typography>
           )}
         </CardContent>

@@ -51,14 +51,16 @@ export function AppHeader() {
         {user && (
           <>
             <Typography variant="body1" className={classes.prescription}>
-              <Link
-                underline="none"
-                component={RouterLink}
-                to="/prescriptions"
-                className={classes.prescriptionLink}
-              >
-                Prescriptions
-              </Link>
+              {user.type === "patient" &&
+                  <Link
+                    underline="none"
+                    component={RouterLink}
+                    to="/prescriptions"
+                    className={classes.prescriptionLink}
+                  >
+                    Prescriptions
+                  </Link>
+              }
             </Typography>
 
             <Button color="inherit" onClick={logout}>

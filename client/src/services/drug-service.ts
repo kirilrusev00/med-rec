@@ -26,7 +26,7 @@ class DrugService {
   }
 
   deleteDrug(pharmacyId: number, drugId: number) {
-    return this.http.delete<Drug>(`/pharmacy/${pharmacyId}/drug/${drugId}`);
+    this.http.delete(`/pharmacy/${pharmacyId}/drug/${drugId}`);
   }
 }
 

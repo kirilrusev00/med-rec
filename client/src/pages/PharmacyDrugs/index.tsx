@@ -41,7 +41,9 @@ export function PharmacyDrugs() {
         <TextField
           placeholder="Search"
           variant="outlined"
-          onChange={(event) => setSearch(event.target.value)}
+          onChange={(event) => {
+            setSearch(event.target.value);
+          }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -53,7 +55,7 @@ export function PharmacyDrugs() {
       </Box>
 
       <Container maxWidth="md">
-        <DrugListForPatient drugs={drugs} pharmacyId={Number(id)} />
+        <DrugListForPatient drugs={drugs ?? []} pharmacyId={Number(id)} />
       </Container>
     </>
   ) : null;

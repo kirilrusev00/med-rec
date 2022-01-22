@@ -7,11 +7,11 @@ import { useCurrentUser } from "../../hooks/use-current-user";
 export function Library() {
   const user = useCurrentUser();
 
-  if (user && user.type == "patient") {
+  if (user && user.type === "patient") {
     return <Patient />;
   }
 
-  if (user && user.type == "pharmacy") {
+  if (user && user.type === "pharmacy") {
     return <Pharmacy pharmacyId={user.id} />;
   }
 

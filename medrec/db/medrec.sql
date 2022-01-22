@@ -5,21 +5,21 @@ CREATE DATABASE IF NOT EXISTS medrec DEFAULT CHARACTER SET utf8 COLLATE utf8_gen
 USE medrec;
 
 CREATE TABLE medicines (
-  `medicine_id` int(40) NOT NULL,
-  `brand_name` varchar(80) NOT NULL,
-  `generic_name` varchar(80) DEFAULT NULL,
+  `medicine_id` int(200) NOT NULL,
+  `brand_name` varchar(200) NOT NULL,
+  `generic_name` varchar(200) DEFAULT NULL,
   `substance_name` text,
-  `manufacturer_name` varchar(80) DEFAULT NULL,
-  `dosage_form` varchar(50) NOT NULL,
-  `route` varchar(50) NOT NULL,
-  `marketing_status` varchar(50) NOT NULL
+  `manufacturer_name` varchar(200) DEFAULT NULL,
+  `dosage_form` varchar(200) NOT NULL,
+  `route` varchar(200) NOT NULL,
+  `marketing_status` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE medicines
   ADD PRIMARY KEY (`medicine_id`);
 
 ALTER TABLE medicines
-  MODIFY `medicine_id` int(40) NOT NULL AUTO_INCREMENT;
+  MODIFY `medicine_id` int(200) NOT NULL AUTO_INCREMENT;
 
 INSERT INTO medicines (brand_name, generic_name, substance_name, manufacturer_name, dosage_form, route, marketing_status) VALUES
 ('ALEVE-D SINUS & COLD', 'NULL', 'NULL', 'NULL', 'TABLET, EXTENDED RELEAS', 'ORAL', 'Over-the-counter'),
@@ -34,13 +34,13 @@ INSERT INTO medicines (brand_name, generic_name, substance_name, manufacturer_na
 ('PREVACID SOLUTAB', 'LANSOPRAZOLE', 'LANSOPRAZOLE', 'Takeda Pharmaceuticals America, Inc.', 'TABLET, ORALLY DISINTEGRATING, DELAYED RELEASE', 'ORAL', 'Prescription');
 
 CREATE TABLE users (
-  `user_id` int(40) NOT NULL,
+  `user_id` int(200) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(256) NOT NULL,
-  `name` varchar(20) NOT NULL,
-  `lastname` varchar(20) DEFAULT NULL,
+  `name` varchar(200) NOT NULL,
+  `lastname` varchar(200) DEFAULT NULL,
   `address` text,
-  `email` varchar(20) NOT NULL,
+  `email` varchar(200) NOT NULL,
   `token` varchar(255) DEFAULT NULL,
   `type` enum('patient','pharmacy') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -50,7 +50,7 @@ ALTER TABLE users
   ADD UNIQUE KEY `username_unique` (`username`);
 
 ALTER TABLE users
-  MODIFY `user_id` int(40) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(200) NOT NULL AUTO_INCREMENT;
 
 INSERT INTO users (username, `password`, `name`, `lastname`, address, email, token, `type`) VALUES
 ('jautumn121', '$2a$10$Yx8iUBXFBDUsQl6mjH4yiO/OnaV2OneBGk8oeBsn9s7rFy0V1hsrG', 'Julia', 'Autumn', NULL, 'julia_autumn@gmail.c', NULL, 'patient'),
@@ -64,9 +64,9 @@ INSERT INTO users (username, `password`, `name`, `lastname`, address, email, tok
 ('remedium', '$2a$10$Yx8iUBXFBDUsQl6mjH4yiO/OnaV2OneBGk8oeBsn9s7rFy0V1hsrG', 'Remedium', NULL, 'ulitsa "Doctor Yordan Yosifov" 4', 'remedium@gmail.com', NULL, 'pharmacy');
 
 CREATE TABLE pharmacy_medicines (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `medicine_id` int(11) NOT NULL
+  `id` int(200) NOT NULL,
+  `user_id` int(200) NOT NULL,
+  `medicine_id` int(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE pharmacy_medicines
@@ -75,7 +75,7 @@ ALTER TABLE pharmacy_medicines
   ADD KEY `user_qr_foreign_key` (`user_id`);
 
 ALTER TABLE pharmacy_medicines
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE pharmacy_medicines
   ADD CONSTRAINT `medicine_foreign_key` FOREIGN KEY (`medicine_id`) REFERENCES `medicines` (`medicine_id`),
@@ -108,16 +108,16 @@ INSERT INTO pharmacy_medicines (id, user_id, medicine_id) VALUES
 (23, 9, 10);
 
 CREATE TABLE qr_codes (
-  `qr_id` int(11) NOT NULL,
-  `filename` varchar(50) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `qr_id` int(200) NOT NULL,
+  `filename` varchar(200) NOT NULL,
+  `user_id` int(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE qr_codes
   ADD PRIMARY KEY (`qr_id`);
 
 ALTER TABLE qr_codes
-  MODIFY `qr_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `qr_id` int(200) NOT NULL AUTO_INCREMENT;
 
 INSERT INTO qr_codes (filename, user_id) VALUES
 ('minirin.png', 1),

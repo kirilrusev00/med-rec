@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(maxAge = 3600)
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/auth")

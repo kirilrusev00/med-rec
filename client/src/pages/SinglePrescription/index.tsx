@@ -2,7 +2,6 @@ import React from "react";
 import { Container, Typography, Box } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { Prescription } from "../../models/Prescription";
 import { useAsync } from "../../hooks/use-async";
 import { prescriptionService } from "../../services/prescription-service";
 import { Spinner } from "../../components/Spinner";
@@ -32,10 +31,6 @@ const useStyles = makeStyles({
   },
 });
 
-interface CustomizedState {
-  prescription: Prescription;
-}
-
 export function SinglePrescription() {
   const classes = useStyles();
   const { id } = useParams<{ id: string }>();
@@ -61,14 +56,14 @@ export function SinglePrescription() {
       </Typography>
 
       <Box marginTop={5} className={classes.box}>
-        <Typography>
-          <Typography className={classes.description}>
-            How to consume:
-          </Typography>
-          {prescription.in}
+        <Typography className={classes.description}>
+          How to consume:
         </Typography>
         <Typography>
-          <Typography className={classes.description}>Date:</Typography>
+          {prescription.in}
+        </Typography>
+        <Typography className={classes.description}>Date:</Typography>
+        <Typography>
           {prescription.date}
         </Typography>
       </Box>

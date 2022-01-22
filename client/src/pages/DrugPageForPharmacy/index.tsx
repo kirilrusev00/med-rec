@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Button, Container, Typography } from "@material-ui/core";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { useCurrentUser } from "../../hooks/use-current-user";
 import { useAsync } from "../../hooks/use-async";
@@ -36,6 +36,7 @@ export function DrugPageForPharmacy() {
   const { drugId } = useParams<{ drugId: string }>();
   const user = useCurrentUser();
   const classes = useStyles();
+  const history = useNavigate();
 
   const {
     data: drug,
@@ -43,12 +44,10 @@ export function DrugPageForPharmacy() {
     error,
   } = useAsync(() => drugService.getDrug(user!.id, Number(drugId)), []);
 
-  async function removeDrug() {
-    try {
-      await drugService.deleteDrug(user!.id, Number(drugId));
-    } catch (error) {
-      console.log(error);
-    }
+  function removeDrug() {
+    drugService.deleteDrug(user!.id, Number(drugId));
+
+    history("/");
   }
 
   if (error) {
@@ -66,45 +65,57 @@ export function DrugPageForPharmacy() {
       </Typography>
 
       <Box marginTop={5} className={classes.box}>
-        {drug.genericName && (
-          <Typography>
+        {drug.genericName !== "NULL" && (
+          <>
             <Typography className={classes.description}>Brand:</Typography>
-            {drug.genericName}
-          </Typography>
+            <Typography>
+              {drug.genericName}
+            </Typography>
+          </>
         )}
-        {drug.substanceName && (
-          <Typography>
+        {drug.substanceName !== "NULL" && (
+          <>
             <Typography className={classes.description}>Substance:</Typography>
-            {drug.substanceName}
-          </Typography>
+            <Typography>
+              {drug.substanceName}
+            </Typography>
+            </>
         )}
-        {drug.manufacturerName && (
-          <Typography>
+        {drug.manufacturerName !== "NULL" && (
+          <>
             <Typography className={classes.description}>
               Manufacturer:
             </Typography>
-            {drug.manufacturerName}
-          </Typography>
+            <Typography>
+              {drug.manufacturerName}
+            </Typography>
+          </>
         )}
-        {drug.dosageForm && (
-          <Typography>
+        {drug.dosageForm !== "NULL" && (
+          <>
             <Typography className={classes.description}>Dosage:</Typography>
-            {drug.dosageForm}
-          </Typography>
+            <Typography>
+              {drug.dosageForm}
+            </Typography>
+          </>
         )}
-        {drug.route && (
-          <Typography>
+        {drug.route !== "NULL" && (
+          <>
             <Typography className={classes.description}>Route:</Typography>
-            {drug.route}
-          </Typography>
+            <Typography>
+              {drug.route}
+            </Typography>
+          </>
         )}
-        {drug.marketingStatus && (
-          <Typography>
+        {drug.marketingStatus !== "NULL" && (
+          <>
             <Typography className={classes.description}>
               Marketing status:
             </Typography>
-            {drug.marketingStatus}
-          </Typography>
+            <Typography>
+              {drug.marketingStatus}
+            </Typography>
+          </>
         )}
       </Box>
 
