@@ -35,7 +35,7 @@ export function PharmacyDrugs() {
     <Spinner />;
   }
 
-  return drugs ? (
+  return (
     <>
       <Box textAlign="center" marginTop={5} marginBottom={5}>
         <TextField
@@ -58,5 +58,5 @@ export function PharmacyDrugs() {
         <DrugListForPatient drugs={drugs ?? []} pharmacyId={Number(id)} />
       </Container>
     </>
-  ) : null;
+  );
 }
