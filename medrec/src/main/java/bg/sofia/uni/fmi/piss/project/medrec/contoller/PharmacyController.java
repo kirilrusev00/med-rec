@@ -3,10 +3,7 @@ package bg.sofia.uni.fmi.piss.project.medrec.contoller;
 import bg.sofia.uni.fmi.piss.project.medrec.dto.MedicineDto;
 import bg.sofia.uni.fmi.piss.project.medrec.dto.PharmacyDrugAddDto;
 import bg.sofia.uni.fmi.piss.project.medrec.dto.PharmacyDto;
-import bg.sofia.uni.fmi.piss.project.medrec.exceptions.DrugNotFoundException;
-import bg.sofia.uni.fmi.piss.project.medrec.exceptions.ExternalServiceNotAvailableException;
-import bg.sofia.uni.fmi.piss.project.medrec.exceptions.MedicineNotFoundException;
-import bg.sofia.uni.fmi.piss.project.medrec.exceptions.PharmacyNotFoundException;
+import bg.sofia.uni.fmi.piss.project.medrec.exceptions.*;
 import bg.sofia.uni.fmi.piss.project.medrec.service.PharmacyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -43,15 +40,15 @@ public class PharmacyController {
     }
 
     @PostMapping("/{id}/drug")
-    @ResponseStatus(HttpStatus.OK) //@PathVariable("id") String pharmacyId, @RequestBody PharmacyDrugAddDto pharmacyDrugAddDto
+    @ResponseStatus(HttpStatus.OK)
     public void addMedicine(@PathVariable("id") String pharmacyId, @RequestBody PharmacyDrugAddDto pharmacyDrugAddDto)
-            throws DrugNotFoundException, ExternalServiceNotAvailableException {
+            throws DrugNotFoundException, ExternalServiceNotAvailableException, DrugAlreadyExistsException {
         pharmacyService.addMedicine(Long.parseLong(pharmacyId), pharmacyDrugAddDto.getBrandName());
     }
 
     @DeleteMapping("/{pharmacyId}/drug/{drugId}")
-    @ResponseStatus(HttpStatus.OK) //@PathVariable("id") String pharmacyId, @RequestBody PharmacyDrugAddDto pharmacyDrugAddDto
-    public void addMedicine(@PathVariable("pharmacyId") String pharmacyId, @PathVariable("drugId") String drugId) {
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteMedicine(@PathVariable("pharmacyId") String pharmacyId, @PathVariable("drugId") String drugId) {
         pharmacyService.deleteMedicineForPharmacy(Long.parseLong(pharmacyId), Long.parseLong(drugId));
     }
 
