@@ -51,7 +51,6 @@ export function CreateDrug() {
   return (
     <Container
       maxWidth="xs"
-      className={classes.form}
     >
       <form  
         onSubmit={(event: FormEvent) => {
@@ -60,6 +59,7 @@ export function CreateDrug() {
           history("/");
           perform();
         }}
+        className={classes.form}
       >
       <Typography variant="h5">Add a new drug</Typography>
 
