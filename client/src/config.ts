@@ -1,3 +1,3 @@
 export const Config = {
-  serverUrl: process.env.CRA_SERVER_URL,
+  serverUrl: process.env.REACT_APP_PUBLIC_SERVER_URL,
 };
