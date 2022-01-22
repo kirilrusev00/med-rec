@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class QrCodeResponseDto {
 
-    private String id;
+    private Long id;
 
     private String pathName;
 }

@@ -40,7 +40,7 @@ public class QrCodeService {
             throw new CouldNotDecodeException("Could not decode QR code");
         }
 
-        return toQrCodeResponseDto(decodedQrCode);
+        return toQrCodeResponseDto(decodedQrCode, qrCodeId);
     }
 
     public List<QrCodeResponseDto> getQrCodesForUser(Long userId) {
@@ -89,10 +89,13 @@ public class QrCodeService {
         }
     }
 
-    private DecodedQrCodeResponseDto toQrCodeResponseDto(String decodedQrCode) {
+    private DecodedQrCodeResponseDto toQrCodeResponseDto(String decodedQrCode, Long qrCodeId) {
         Gson gson = new Gson();
         QrCode qr = gson.fromJson(decodedQrCode, QrCode.class);
 
-        return modelMapper.map(qr.getPrescription(), DecodedQrCodeResponseDto.class);
+        DecodedQrCodeResponseDto decodedQr = modelMapper.map(qr.getPrescription(), DecodedQrCodeResponseDto.class);
+        decodedQr.setId(qrCodeId);
+
+        return decodedQr;
     }
 }

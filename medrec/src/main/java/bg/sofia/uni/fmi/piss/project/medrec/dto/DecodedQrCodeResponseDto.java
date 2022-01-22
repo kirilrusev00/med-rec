@@ -6,6 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DecodedQrCodeResponseDto {
+    private Long id;
+
     private String drugName;
 
     private String in;
