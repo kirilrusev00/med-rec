@@ -1,17 +1,23 @@
 package bg.sofia.uni.fmi.piss.project.medrec.service;
 
+import bg.sofia.uni.fmi.piss.project.medrec.dto.LoginUserDto;
+import bg.sofia.uni.fmi.piss.project.medrec.dto.LoginUserResponseDto;
+import bg.sofia.uni.fmi.piss.project.medrec.dto.UserDto;
 import bg.sofia.uni.fmi.piss.project.medrec.dto.UserRegistrationDto;
 import bg.sofia.uni.fmi.piss.project.medrec.exceptions.UserAlreadyExistsException;
 import bg.sofia.uni.fmi.piss.project.medrec.model.Type;
 import bg.sofia.uni.fmi.piss.project.medrec.model.UserEntity;
 import bg.sofia.uni.fmi.piss.project.medrec.repository.UserRepository;
+import bg.sofia.uni.fmi.piss.project.medrec.security.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
-import java.security.GeneralSecurityException;
 import java.util.Optional;
 
 @Service
@@ -22,6 +28,12 @@ public class AuthenticationService {
 
     private final ModelMapper modelMapper;
 
+    private final AuthenticationManager authenticationManager;
+
+    private final JwtUtils jwtUtils;
+
+    private final PasswordEncoder encoder;
+
     public void registerPatient(UserRegistrationDto user) throws UserAlreadyExistsException {
         checkIfUserExists(user.getUsername());
 
@@ -29,6 +41,16 @@ public class AuthenticationService {
         userRepository.save(userEntity);
     }
 
+    public LoginUserResponseDto login(LoginUserDto user) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
+
+        UserEntity userDetails = (UserEntity) authentication.getPrincipal();
+
+        return toLoginUserResponseDto(userDetails, jwt);
+    }
 
     private void checkIfUserExists(String username) throws UserAlreadyExistsException {
         Optional<UserEntity> user = userRepository.findByUsername(username);
@@ -37,29 +59,17 @@ public class AuthenticationService {
         }
     }
 
-    private boolean validateGivenPassword(String password, String passwordTry) {
-        return password.equals(encrypt(passwordTry));
-    }
-
-    private static String encrypt(String strClearText) {
-        String strData;
-        String strKey = "ghnk";
-        try {
-            SecretKeySpec skeyspec = new SecretKeySpec(strKey.getBytes(), "Blowfish");
-            Cipher cipher = Cipher.getInstance("Blowfish");
-            cipher.init(Cipher.ENCRYPT_MODE, skeyspec);
-            byte[] encrypted = cipher.doFinal(strClearText.getBytes());
-            strData = new String(encrypted);
-        } catch (GeneralSecurityException e) {
-            throw new IllegalStateException("Problem with encrypting function", e);
-        }
-        return strData;
-    }
-
     private UserEntity toUserEntity(UserRegistrationDto user, Type type) {
         UserEntity userEntity = modelMapper.map(user, UserEntity.class);
+        userEntity.setPassword(encoder.encode(user.getPassword()));
         userEntity.setType(type);
 
         return userEntity;
+    }
+
+    private LoginUserResponseDto toLoginUserResponseDto(UserEntity user, String jwt) {
+        UserDto userDto = modelMapper.map(user, UserDto.class);
+
+        return new LoginUserResponseDto(userDto, jwt);
     }
 }
