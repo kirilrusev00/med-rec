@@ -2,10 +2,7 @@ package bg.sofia.uni.fmi.piss.project.medrec.service;
 
 import bg.sofia.uni.fmi.piss.project.medrec.dto.MedicineDto;
 import bg.sofia.uni.fmi.piss.project.medrec.dto.PharmacyDto;
-import bg.sofia.uni.fmi.piss.project.medrec.exceptions.DrugNotFoundException;
-import bg.sofia.uni.fmi.piss.project.medrec.exceptions.ExternalServiceNotAvailableException;
-import bg.sofia.uni.fmi.piss.project.medrec.exceptions.MedicineNotFoundException;
-import bg.sofia.uni.fmi.piss.project.medrec.exceptions.PharmacyNotFoundException;
+import bg.sofia.uni.fmi.piss.project.medrec.exceptions.*;
 import bg.sofia.uni.fmi.piss.project.medrec.model.MedicineEntity;
 import bg.sofia.uni.fmi.piss.project.medrec.model.PharmacyMedicineEntity;
 import bg.sofia.uni.fmi.piss.project.medrec.model.Type;
@@ -38,8 +35,14 @@ public class PharmacyService {
     private final ModelMapper modelMapper;
 
     public void addMedicine(Long pharmacyId, String brandName)
-            throws DrugNotFoundException, ExternalServiceNotAvailableException {
+            throws DrugNotFoundException, ExternalServiceNotAvailableException, DrugAlreadyExistsException {
+        // check if already added
+
         Long medicineId = getMedicineId(brandName);
+
+        if (pharmacyMedicineRepository.findByUserIdAndMedicineId(pharmacyId, medicineId).isPresent()) {
+            throw new DrugAlreadyExistsException("Drug already added for this pharmacy");
+        }
 
         if (medicineId == -1L) {
             Drug medicineDrugsFda = drugsFDAService.getDrugFromDrugsFda(brandName);
