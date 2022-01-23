@@ -37,7 +37,6 @@ export function CreateDrug() {
     trigger: submit,
     loading,
     error,
-    perform,
   } = useAsyncAction(async () => await drugService.createDrug(user!.id, fields.brandName));
 
   if (error) {
@@ -56,8 +55,7 @@ export function CreateDrug() {
         onSubmit={(event: FormEvent) => {
           event.preventDefault();
           submit();
-          history("/");
-          perform();
+          history("/", { replace: true });
         }}
         className={classes.form}
       >

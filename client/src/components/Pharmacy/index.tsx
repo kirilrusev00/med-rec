@@ -64,10 +64,7 @@ export function Pharmacy({ pharmacyId }: PharmacyProps) {
         <TextField
           placeholder="Search"
           variant="outlined"
-          onChange={(event) => {
-            console.log(event.target.value);
-            setSearch(event.target.value);
-          }}
+          onChange={(event) => setSearch(event.target.value)}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
