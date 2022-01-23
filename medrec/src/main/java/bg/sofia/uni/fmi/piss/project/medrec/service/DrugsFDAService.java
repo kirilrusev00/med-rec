@@ -16,7 +16,7 @@ import java.net.http.HttpResponse;
 @Service
 public class DrugsFDAService {
     private static final String BASE_ENDPOINT = "https://api.fda.gov/drug/drugsfda.json";
-    private static final String SEARCH_BY_BRAND_NAME = "?search=products.brand_name:";
+    private static final String SEARCH_BY_BRAND_NAME = "?search=openfda.brand_name:";
     private static final String LIMIT_SEARCHES = "&limit=1";
 
     private HttpClient client;

@@ -34,9 +34,9 @@ public class PharmacyService {
 
     private final ModelMapper modelMapper;
 
+    @Transactional
     public void addMedicine(Long pharmacyId, String brandName)
             throws DrugNotFoundException, ExternalServiceNotAvailableException, DrugAlreadyExistsException {
-        // check if already added
 
         Long medicineId = getMedicineId(brandName);
 
